@@ -42,23 +42,23 @@ function addEmployee() { //--------------------------------------------- Add Emp
         {
             type: 'input',
             name: 'firstName',
-            message: "What is the employee's first name? "
+            message: "What is the employee's first name?"
         },
         {
             type: 'input',
             name: 'lastName',
-            message: "What is the employee's last name? "
+            message: "What is the employee's last name?"
         },
         {
             type: 'list',
             name: 'title',
-            message: "What is employee's role? ",
+            message: "What is employee's role?",
             choices: titles
         },
         {
             type: 'list',
             name: 'manager',
-            message: "Who is employee's manager ?",
+            message: "Who is employee's manager?",
             choices: employees
         }
     ]);
@@ -81,7 +81,7 @@ function removeEmployee() {//--------------------------------------------- remov
         {
             type: 'list',
             name: 'name',
-            message: 'Which employee would you like to remove ?',
+            message: 'Which employee would you like to remove?',
             choices: employees
         }
     ]);
@@ -203,7 +203,7 @@ function displayAllEmployeesByDepartment() {
         {
             type: 'list',
             name: 'name',
-            message: 'Please select a department ?',
+            message: 'Please select a department:',
             choices: departmentNames
         }
     ]);
@@ -219,3 +219,37 @@ function displayAllEmployeesByDepartment() {
     //   if (err) throw err;
     // }
 }
+
+function displayAllEmployeesByManager() {
+    // try {
+    const managers = getAllManagers();
+    const manager = inquirer.prompt([
+        {
+            type: 'list',
+            name: 'name',
+            message: 'Please select a department:',
+            choices: managers
+        }
+    ]);
+
+    const managerID = getEmployeeID(manager.name);
+
+    const employeesManaged = getAllEmployeesByManager(managerID);
+
+    const footer = displayHeadline(`All Employees under ${manager.name}`);
+    console.table(employeesManaged);
+    displayFooter(footer);
+    // } catch (err) {
+    //   if (err) throw err;
+    // }
+}
+
+module.exports = {
+    addEmployee,
+    removeEmployee,
+    updateEmployeeManager,
+    updateEmployeeRole,
+    displayAllEmployees,
+    displayAllEmployeesByDepartment,
+    displayAllEmployeesByManager
+};
