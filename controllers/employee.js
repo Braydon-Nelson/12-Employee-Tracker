@@ -171,26 +171,3 @@ function updateEmployeeRole() {
     //     if (err) throw err;
     // }
 }
-
-function displayAllEmployees() {
-    // try {
-    const employees = getAllEmployeesDetails();
-
-    for (const employee of employees) {
-        if (employee['manager_id'] !== null) {
-            employee.Manager = getManagerByID(employee['manager_id']);
-            delete employee['manager_id'];
-        } else {
-            employee.Manager = 'None';
-            delete employee['manager_id'];
-        }
-    }
-    const footer = displayHeadline('All Employees');
-    console.table(employees);
-    displayFooter(footer);
-    // } catch (err) {
-    //   if (err) {
-    //     throw err;
-    //   }
-    // }
-}
