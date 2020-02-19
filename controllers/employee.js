@@ -3,7 +3,7 @@ const consoleTable = require('console.table');
 
 const {
     getEmployeeID,
-    insertEmlpoyee,
+    insertEmployee,
     getAllEmployees,
     getManagerByID,
     getAllManagers,
@@ -192,5 +192,30 @@ function displayAllEmployees() {
     //   if (err) {
     //     throw err;
     //   }
+    // }
+}
+
+function displayAllEmployeesByDepartment() {
+    // try {
+    const departmentNames = getAllDepartmentNames();
+
+    const department = inquirer.prompt([
+        {
+            type: 'list',
+            name: 'name',
+            message: 'Please select a department ?',
+            choices: departmentNames
+        }
+    ]);
+
+    const departmentID = getDepartmentID(department.name);
+
+    const employees = getAllEmployeesByDepartment(departmentID);
+
+    const footer = displayHeadline(`All Employees in ${department.name}`);
+    console.table(employees);
+    displayFooter(footer);
+    // } catch (err) {
+    //   if (err) throw err;
     // }
 }
