@@ -140,3 +140,57 @@ function updateEmployeeManager() {
     //     if (err) throw err;
     // }
 }
+
+function updateEmployeeRole() {
+    // try {
+    // Get the list of employees
+    let employees = getAllEmployees();
+
+    let employee = inquirer.prompt([
+        {
+            type: 'list',
+            name: 'name',
+            message: 'Please select an employee: ',
+            choices: employees
+        }
+    ]);
+
+    const titles = getAllTitles();
+
+    const role = inquirer.prompt([
+        {
+            type: 'list',
+            name: 'title',
+            message: "Please select a role as the employee's new role: ",
+            choices: titles
+        }
+    ]);
+
+    setEmployeeRole(employee.name, role);
+    // } catch (err) {
+    //     if (err) throw err;
+    // }
+}
+
+function displayAllEmployees() {
+    // try {
+    const employees = getAllEmployeesDetails();
+
+    for (const employee of employees) {
+        if (employee['manager_id'] !== null) {
+            employee.Manager = getManagerByID(employee['manager_id']);
+            delete employee['manager_id'];
+        } else {
+            employee.Manager = 'None';
+            delete employee['manager_id'];
+        }
+    }
+    const footer = displayHeadline('All Employees');
+    console.table(employees);
+    displayFooter(footer);
+    // } catch (err) {
+    //   if (err) {
+    //     throw err;
+    //   }
+    // }
+}
