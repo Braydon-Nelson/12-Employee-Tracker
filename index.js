@@ -3,7 +3,7 @@ const db = require('./db/');
 
 const {
     addEmployee,
-    deleteEmployee,
+    removeEmployee,
     updateEmployeeRole,
     updateEmployeeManager,
     displayAllEmployees,
@@ -13,13 +13,13 @@ const {
 
 const {
     addDepartment,
-    deleteDepartment,
+    removeDepartment,
     displayAllDepartments
 } = require('./controllers/departments');
 
 const {
     addRole,
-    deleteRole,
+    removeRole,
     displayAllRoles
 } = require('./controllers/roles');
 
