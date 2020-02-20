@@ -17,15 +17,15 @@ const {
 const { addRole, removeRole, displayAllRoles } = require('./controllers/role');
 // const { displayBanner } = require('./utils/banner');
 
-function init() {
+async function init() {
     db.dropAndInit();
     // displayBanner();
-    app();
+    await app();
 }
 
-function app() {
+async function app() {
     console.log('\n');
-    const answer = inquirer.prompt([
+    const answer = await inquirer.prompt([
         {
             type: 'list',
             name: 'action',
@@ -53,59 +53,59 @@ function app() {
 
     switch (answer.action.toLowerCase()) {
         case 'view all employees':
-            displayAllEmployees();
+            await displayAllEmployees();
             app();
             break;
         case 'view all employees by department':
-            displayAllEmployeesByDepartment();
+            await displayAllEmployeesByDepartment();
             app();
             break;
         case 'view all employees by manager':
-            displayAllEmployeesByManager();
+            await displayAllEmployeesByManager();
             app();
             break;
         case 'view all roles':
-            displayAllRoles();
+            await displayAllRoles();
             app();
             break;
         case 'view all departments':
-            displayAllDepartments();
+            await displayAllDepartments();
             app();
             break;
         case 'add employee':
-            addEmployee();
+            await addEmployee();
             app();
             break;
         case 'remove employee':
-            removeEmployee();
+            await removeEmployee();
             app();
             break;
         case 'update employee manager':
-            updateEmployeeManager();
+            await updateEmployeeManager();
             app();
             break;
         case 'update employee role':
-            updateEmployeeRole();
+            await updateEmployeeRole();
             app();
             break;
         case 'update employee department':
-            updateEmployeeDepartment();
+            await updateEmployeeDepartment();
             app();
             break;
         case 'add department':
-            addDepartment();
+            await addDepartment();
             app();
             break;
         case 'remove department':
-            removeDepartment();
+            await removeDepartment();
             app();
             break;
         case 'add role':
-            addRole();
+            await addRole();
             app();
             break;
         case 'remove role':
-            removeRole();
+            await removeRole();
             app();
             break;
         case 'exit':

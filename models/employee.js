@@ -5,7 +5,7 @@ const db = mysql.createConnection({
     port: 3306,
     user: 'root',
     password: process.env.MYSQL_PASSWORD,
-    database: 'employeesDB'
+    database: 'employeeDB'
 });
 
 function getEmployeeID(employeeName) {
