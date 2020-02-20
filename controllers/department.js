@@ -3,10 +3,6 @@ const {
     getAllDepartments,
     deleteDepartment
 } = require('../models/department');
-// const {
-//     displayHeadline,
-//     displayFooter
-// } = require('../utils/log');
 
 async function addDepartment() {
     try {
@@ -14,7 +10,7 @@ async function addDepartment() {
             {
                 type: 'input',
                 name: 'name',
-                message: 'Enter the new department you would like to add '
+                message: 'Enter the new department you would like to add:'
             }
         ]);
 
@@ -23,7 +19,6 @@ async function addDepartment() {
         if (err) throw err;
     }
 }
-
 
 async function getAllDepartmentNames() {
     try {
@@ -62,9 +57,7 @@ async function removeDepartment() {
 async function displayAllDepartments() {
     try {
         const departments = await getAllDepartments();
-        // const footer = displayHeadline('All Departments');
         console.table(departments);
-        // displayFooter(footer);
     } catch (err) {
         if (err) throw err;
     }

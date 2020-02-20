@@ -1,7 +1,7 @@
 const database = require('../database');
 const mysql = require('mysql');
 
-// Conect to employee_db database
+// Conect to employee database
 const db = mysql.createConnection({
     host: 'localhost',
     port: 3306,
@@ -11,46 +11,55 @@ const db = mysql.createConnection({
 });
 
 function getDepartmentID(departmentName) {
-    const query = "SELECT id FROM department WHERE name = ?";
-    db.query(query, [departmentName], (err, results, fields) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(results[0].id);
-        }
+    return new Promise((resolve, reject) => {
+        const query = "SELECT id FROM department WHERE name = ?";
+        db.query(query, [departmentName], (err, results) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results[0].id);
+            }
+        });
     });
 };
 
 function insertDepartment(departmentName) {
-    const query = "INSERT INTO department (name) VALUES (?)";
-    db.query(query, [departmentName], err => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('Department Added');
-        }
+    return new Promise((resolve, reject) => {
+        const query = "INSERT INTO department (name) VALUES (?)";
+        db.query(query, [departmentName], err => {
+            if (err) {
+                reject(err);
+            } else {
+                console.log('Success');
+                resolve();
+            }
+        });
     });
 };
 
 function deleteDepartment(departmentName) {
-    const query = "DELETE FROM department WHERE name = ?";
-    db.query(query, [departmentName], err => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('Department Deleted');
-        }
+    return new Promise((resolve, reject) => {
+        const query = "DELETE FROM department WHERE name = ?";
+        db.query(query, [departmentName], err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve('Success');
+            }
+        });
     });
 };
 
 function getAllDepartments() {
-    const query = "SELECT id AS 'ID', name AS 'Name' FROM department";
-    db.query(query, (err, results, fields) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(results);
-        }
+    return new Promise((resolve, reject) => {
+        const query = "SELECT id AS 'ID', name AS 'Name' FROM department";
+        db.query(query, (err, results, fields) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results);
+            }
+        });
     });
 };
 

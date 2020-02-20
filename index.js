@@ -14,12 +14,14 @@ const {
     removeDepartment,
     displayAllDepartments
 } = require('./controllers/department');
-const { addRole, removeRole, displayAllRoles } = require('./controllers/role');
-// const { displayBanner } = require('./utils/banner');
+const {
+    addRole,
+    removeRole,
+    displayAllRoles
+} = require('./controllers/role');
 
 async function init() {
     db.dropAndInit();
-    // displayBanner();
     await app();
 }
 
@@ -111,6 +113,7 @@ async function app() {
         case 'exit':
             console.log('Have a nice day!');
             db.dropAndEnd();
+            process.exit();
         default:
             break;
     }

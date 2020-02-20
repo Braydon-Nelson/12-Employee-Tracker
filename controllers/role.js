@@ -7,10 +7,6 @@ const {
 const {
     getAllRoles
 } = require('../models/role');
-// const {
-//     displayHeadline,
-//     displayFooter
-// } = require('../utils/log');
 
 async function addRole() {
     try {
@@ -59,7 +55,7 @@ async function getAllRoleNames() {
 
 async function removeRole() {
     try {
-        const roleNames = getAllRoleNames;
+        const roleNames = await getAllRoleNames;
 
         const role = await inquirer.prompt([
             {
@@ -79,9 +75,7 @@ async function removeRole() {
 async function displayAllRoles() {
     try {
         const roles = await getAllRoles();
-        // const footer = displayHeadline('All Roles');
         console.table(roles);
-        // displayFooter(footer);
     } catch (err) {
         if (err) throw err;
     }

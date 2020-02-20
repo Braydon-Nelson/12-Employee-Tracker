@@ -82,12 +82,12 @@ const database = {
             `INSERT INTO role (title, salary, department_id) 
         VALUES 
           ('Sales Lead', 100000, 1),
-          ('Salesperson', 200000, 1),
-          ('Lawyer', 300000, 2),
-          ('Legal Team Lead', 400000, 2),
-          ('Accountant', 500000, 3),
-          ('Software Engineer', 600000, 4),
-          ('Lead Software Engineer', 700000, 4)`,
+          ('Salesperson', 80000, 1),
+          ('Lawyer', 190000, 2),
+          ('Legal Team Lead', 250000, 2),
+          ('Accountant', 125000, 3),
+          ('Software Engineer', 120000, 4),
+          ('Lead Software Engineer', 180000, 4)`,
             err => {
                 if (err) {
                     console.log(err);

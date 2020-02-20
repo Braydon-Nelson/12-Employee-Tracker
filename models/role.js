@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-// Conect to employee_db database
+// Conect to employee database
 const db = mysql.createConnection({
     host: 'localhost',
     port: 3306,
@@ -9,63 +9,73 @@ const db = mysql.createConnection({
 });
 
 function getRoleID(roleTitle) {
-    const query = "SELECT id FROM role WHERE title = ?"
-    db.query(query, [roleTitle], (err, results, fields) => {
-        if (err) {
-            throw err;
-        } else {
-            console.log(results[0].id);
-        }
+    return new Promise((resolve, reject) => {
+        const query = "SELECT id FROM role WHERE title = ?"
+        db.query(query, [roleTitle], (err, results) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results[0].id);
+            }
+        });
     });
 };
 
 function insertRole(role) {
-    const query =
-        `INSERT INTO role (title, salary, department_id)
+    return new Promise((resolve, reject) => {
+        const query =
+            `INSERT INTO role (title, salary, department_id)
      VALUES (?, ?, ?)`;
-    db.query(query, [role.title, role.salary, role.departmentID], err => {
-        if (err) {
-            throw err;
-        } else {
-            console.log('Role added');
-        }
+        db.query(query, [role.title, role.salary, role.departmentID], err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve('Success');
+            }
+        });
     });
 };
 
 function deleteRole(roleTitle) {
-    const query = "DELETE FROM role WHERE title = ?";
-    db.query(query, [roleTitle], err => {
-        if (err) {
-            throw err;
-        } else {
-            console.log('Role Deleted');
-        }
+    return new Promise((resolve, reject) => {
+        const query = "DELETE FROM role WHERE title = ?";
+        db.query(query, [roleTitle], err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve('Success');
+            }
+        });
     });
 };
 
 function getAllRoles() {
-    const query = "SELECT id AS 'ID', title AS 'Title', salary AS 'Salary' FROM role";
-    db.query(query, (err, results, fields) => {
-        if (err) {
-            throw err;
-        } else {
-            console.log(results);
-        }
+    return new Promise((resolve, reject) => {
+        const query = "SELECT id AS 'ID', title AS 'Title', salary AS 'Salary' FROM role";
+        db.query(query, (err, results) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(results);
+            }
+        });
     });
 };
 
 function getAllTitles() {
-    const query = "SELECT id AS 'ID', title AS 'Title', salary AS 'Salary' FROM role";
-    // Get the list of all titles
-    const titles = [];
-    db.query(query, (err, results, fields) => {
-        if (err) throw err;
+    return new Promise((resolve, reject) => {
+        const query = "SELECT id AS 'ID', title AS 'Title', salary AS 'Salary' FROM role";
+        // Get the list of all titles
+        const titles = [];
+        db.query(query, (err, results) => {
+            if (err) reject(err);
 
-        for (const role of results) {
-            titles.push(role.Title);
-        }
+            for (const role of results) {
+                titles.push(role.Title);
+            }
 
-        console.log(titles);
+            resolve(titles);
+        });
     });
 };
 

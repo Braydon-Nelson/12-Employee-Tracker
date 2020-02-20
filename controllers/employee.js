@@ -1,6 +1,5 @@
 const inquirer = require('inquirer');
 const consoleTable = require('console.table');
-
 const {
     getEmployeeID,
     insertEmployee,
@@ -23,42 +22,37 @@ const {
 const {
     getAllDepartmentNames
 } = require('./department');
-// const {
-//     displayHeadline,
-//     displayFooter
-// } = require('../utils/log');
 
-
-async function addEmployee() { //--------------------------------------------- Add Employee
+async function addEmployee() {
     // Get all titles from the role table
     const titles = await getAllTitles();
 
     // Get the list of employees from employee table
     const employees = await getAllEmployees();
-    // employees.unshift('None');
+    employees.unshift('None');
 
     try {
         const employee = await inquirer.prompt([
             {
                 type: 'input',
                 name: 'firstName',
-                message: "What is the employee's first name?"
+                message: "What is the employee's first name? "
             },
             {
                 type: 'input',
                 name: 'lastName',
-                message: "What is the employee's last name?"
+                message: "What is the employee's last name? "
             },
             {
                 type: 'list',
                 name: 'title',
-                message: "What is employee's role?",
+                message: "What is employee's role? ",
                 choices: titles
             },
             {
                 type: 'list',
                 name: 'manager',
-                message: "Who is employee's manager?",
+                message: "Who is employee's manager ?",
                 choices: employees
             }
         ]);
@@ -72,7 +66,7 @@ async function addEmployee() { //--------------------------------------------- A
     }
 }
 
-async function removeEmployee() {//--------------------------------------------- remove Employee
+async function removeEmployee() {
     try {
         // Get the list of employees from employee table
         const employees = await getAllEmployees();
@@ -81,7 +75,7 @@ async function removeEmployee() {//---------------------------------------------
             {
                 type: 'list',
                 name: 'name',
-                message: 'Which employee would you like to remove?',
+                message: 'Which employee would you like to remove ?',
                 choices: employees
             }
         ]);
@@ -122,7 +116,7 @@ async function updateEmployeeManager() {
         ]);
 
         employee = employee.name;
-        employees = employees.filter(element => element !== employee);
+        employees = employees.filter(el => el !== employee);
 
         const manager = await inquirer.prompt([
             {
@@ -185,9 +179,7 @@ async function displayAllEmployees() {
                 delete employee['manager_id'];
             }
         }
-        // const footer = displayHeadline('All Employees');
         console.table(employees);
-        // displayFooter(footer);
     } catch (err) {
         if (err) {
             throw err;
@@ -203,7 +195,7 @@ async function displayAllEmployeesByDepartment() {
             {
                 type: 'list',
                 name: 'name',
-                message: 'Please select a department:',
+                message: 'Please select a department ?',
                 choices: departmentNames
             }
         ]);
@@ -212,9 +204,7 @@ async function displayAllEmployeesByDepartment() {
 
         const employees = await getAllEmployeesByDepartment(departmentID);
 
-        // const footer = displayHeadline(`All Employees in ${department.name}`);
         console.table(employees);
-        // displayFooter(footer);
     } catch (err) {
         if (err) throw err;
     }
@@ -227,7 +217,7 @@ async function displayAllEmployeesByManager() {
             {
                 type: 'list',
                 name: 'name',
-                message: 'Please select a department:',
+                message: 'Please select a department ?',
                 choices: managers
             }
         ]);
@@ -236,9 +226,7 @@ async function displayAllEmployeesByManager() {
 
         const employeesManaged = await getAllEmployeesByManager(managerID);
 
-        // const footer = displayHeadline(`All Employees under ${manager.name}`);
         console.table(employeesManaged);
-        // displayFooter(footer);
     } catch (err) {
         if (err) throw err;
     }
