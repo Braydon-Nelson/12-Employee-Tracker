@@ -29,219 +29,219 @@ const {
 // } = require('../utils/log');
 
 
-function addEmployee() { //--------------------------------------------- Add Employee
+async function addEmployee() { //--------------------------------------------- Add Employee
     // Get all titles from the role table
-    const titles = getAllTitles();
+    const titles = await getAllTitles();
 
     // Get the list of employees from employee table
-    const employees = getAllEmployees();
+    const employees = await getAllEmployees();
     // employees.unshift('None');
 
-    // try {
-    const employee = inquirer.prompt([
-        {
-            type: 'input',
-            name: 'firstName',
-            message: "What is the employee's first name?"
-        },
-        {
-            type: 'input',
-            name: 'lastName',
-            message: "What is the employee's last name?"
-        },
-        {
-            type: 'list',
-            name: 'title',
-            message: "What is employee's role?",
-            choices: titles
-        },
-        {
-            type: 'list',
-            name: 'manager',
-            message: "Who is employee's manager?",
-            choices: employees
-        }
-    ]);
+    try {
+        const employee = await inquirer.prompt([
+            {
+                type: 'input',
+                name: 'firstName',
+                message: "What is the employee's first name?"
+            },
+            {
+                type: 'input',
+                name: 'lastName',
+                message: "What is the employee's last name?"
+            },
+            {
+                type: 'list',
+                name: 'title',
+                message: "What is employee's role?",
+                choices: titles
+            },
+            {
+                type: 'list',
+                name: 'manager',
+                message: "Who is employee's manager?",
+                choices: employees
+            }
+        ]);
 
-    employee.roleID = getRoleID(employee.title);
-    employee.managerID = getEmployeeID(employee.manager);
+        employee.roleID = await getRoleID(employee.title);
+        employee.managerID = await getEmployeeID(employee.manager);
 
-    insertEmployee(employee);
-    // } catch (err) {
-    //     if (err) throw err;
-    // }
-}
-
-function removeEmployee() {//--------------------------------------------- remove Employee
-    // try {
-    // Get the list of employees from employee table
-    const employees = getAllEmployees();
-
-    const employee = inquirer.prompt([
-        {
-            type: 'list',
-            name: 'name',
-            message: 'Which employee would you like to remove?',
-            choices: employees
-        }
-    ]);
-
-    const managers = getAllManagers();
-
-    if (managers.includes(employee.name)) {
-        const managerID = getEmployeeID(employee.name);
-        const employeesManaged = getAllEmployeesByManager(managerID);
-
-        for (let employeeManaged of employeesManaged) {
-            employeeManaged =
-                employeeManaged['First Name'] + ' ' + employeeManaged['Last Name'];
-            setEmployeeManager(employeeManaged);
-        }
-
-        deleteEmployee(employee.name);
-    } else {
-        deleteEmployee(employee.name);
+        await insertEmployee(employee);
+    } catch (err) {
+        if (err) throw err;
     }
-    // } catch (err) {
-    //   if (err) throw err;
-    // }
 }
 
-function updateEmployeeManager() {
-    // try {
-    // Get the list of employees
-    let employees = getAllEmployees();
+async function removeEmployee() {//--------------------------------------------- remove Employee
+    try {
+        // Get the list of employees from employee table
+        const employees = await getAllEmployees();
 
-    let employee = inquirer.prompt([
-        {
-            type: 'list',
-            name: 'name',
-            message: 'Please select an employee: ',
-            choices: employees
-        }
-    ]);
+        const employee = await inquirer.prompt([
+            {
+                type: 'list',
+                name: 'name',
+                message: 'Which employee would you like to remove?',
+                choices: employees
+            }
+        ]);
 
-    employee = employee.name;
-    employees = employees.filter(element => element !== employee);
+        const managers = await getAllManagers();
 
-    const manager = inquirer.prompt([
-        {
-            type: 'list',
-            name: 'name',
-            message: 'Please select an employee to assign as the manager: ',
-            choices: employees
-        }
-    ]);
+        if (managers.includes(employee.name)) {
+            const managerID = await getEmployeeID(employee.name);
+            const employeesManaged = await getAllEmployeesByManager(managerID);
 
-    manager.id = getEmployeeID(manager.name);
+            for (let employeeManaged of employeesManaged) {
+                employeeManaged =
+                    employeeManaged['First Name'] + ' ' + employeeManaged['Last Name'];
+                setEmployeeManager(employeeManaged);
+            }
 
-    setEmployeeManager(employee, manager.id);
-    // } catch (err) {
-    //     if (err) throw err;
-    // }
-}
-
-function updateEmployeeRole() {
-    // try {
-    // Get the list of employees
-    let employees = getAllEmployees();
-
-    let employee = inquirer.prompt([
-        {
-            type: 'list',
-            name: 'name',
-            message: 'Please select an employee: ',
-            choices: employees
-        }
-    ]);
-
-    const titles = getAllTitles();
-
-    const role = inquirer.prompt([
-        {
-            type: 'list',
-            name: 'title',
-            message: "Please select a role as the employee's new role: ",
-            choices: titles
-        }
-    ]);
-
-    setEmployeeRole(employee.name, role);
-    // } catch (err) {
-    //     if (err) throw err;
-    // }
-}
-
-function displayAllEmployees() {
-    // try {
-    const employees = getAllEmployeesDetails();
-
-    for (const employee of employees) {
-        if (employee['manager_id'] !== null) {
-            employee.Manager = getManagerByID(employee['manager_id']);
-            delete employee['manager_id'];
+            deleteEmployee(employee.name);
         } else {
-            employee.Manager = 'None';
-            delete employee['manager_id'];
+            deleteEmployee(employee.name);
+        }
+    } catch (err) {
+        if (err) throw err;
+    }
+}
+
+async function updateEmployeeManager() {
+    try {
+        // Get the list of employees
+        let employees = await getAllEmployees();
+
+        let employee = await inquirer.prompt([
+            {
+                type: 'list',
+                name: 'name',
+                message: 'Please select an employee: ',
+                choices: employees
+            }
+        ]);
+
+        employee = employee.name;
+        employees = employees.filter(element => element !== employee);
+
+        const manager = await inquirer.prompt([
+            {
+                type: 'list',
+                name: 'name',
+                message: 'Please select an employee to assign as the manager: ',
+                choices: employees
+            }
+        ]);
+
+        manager.id = await getEmployeeID(manager.name);
+
+        await setEmployeeManager(employee, manager.id);
+    } catch (err) {
+        if (err) throw err;
+    }
+}
+
+async function updateEmployeeRole() {
+    try {
+        // Get the list of employees
+        let employees = await getAllEmployees();
+
+        let employee = await inquirer.prompt([
+            {
+                type: 'list',
+                name: 'name',
+                message: 'Please select an employee: ',
+                choices: employees
+            }
+        ]);
+
+        const titles = await getAllTitles();
+
+        const role = await inquirer.prompt([
+            {
+                type: 'list',
+                name: 'title',
+                message: "Please select a role as the employee's new role: ",
+                choices: titles
+            }
+        ]);
+
+        await setEmployeeRole(employee.name, role);
+    } catch (err) {
+        if (err) throw err;
+    }
+}
+
+async function displayAllEmployees() {
+    try {
+        const employees = await getAllEmployeesDetails();
+
+        for (const employee of employees) {
+            if (employee['manager_id'] !== null) {
+                employee.Manager = await getManagerByID(employee['manager_id']);
+                delete employee['manager_id'];
+            } else {
+                employee.Manager = 'None';
+                delete employee['manager_id'];
+            }
+        }
+        // const footer = displayHeadline('All Employees');
+        console.table(employees);
+        // displayFooter(footer);
+    } catch (err) {
+        if (err) {
+            throw err;
         }
     }
-    // const footer = displayHeadline('All Employees');
-    console.table(employees);
-    // displayFooter(footer);
-    // } catch (err) {
-    //   if (err) {
-    //     throw err;
-    //   }
-    // }
 }
 
-function displayAllEmployeesByDepartment() {
-    // try {
-    const departmentNames = getAllDepartmentNames();
+async function displayAllEmployeesByDepartment() {
+    try {
+        const departmentNames = await getAllDepartmentNames();
 
-    const department = inquirer.prompt([
-        {
-            type: 'list',
-            name: 'name',
-            message: 'Please select a department:',
-            choices: departmentNames
-        }
-    ]);
+        const department = await inquirer.prompt([
+            {
+                type: 'list',
+                name: 'name',
+                message: 'Please select a department:',
+                choices: departmentNames
+            }
+        ]);
 
-    const departmentID = getDepartmentID(department.name);
+        const departmentID = await getDepartmentID(department.name);
 
-    const employees = getAllEmployeesByDepartment(departmentID);
+        const employees = await getAllEmployeesByDepartment(departmentID);
 
-    // const footer = displayHeadline(`All Employees in ${department.name}`);
-    console.table(employees);
-    // displayFooter(footer);
-    // } catch (err) {
-    //   if (err) throw err;
-    // }
+        // const footer = displayHeadline(`All Employees in ${department.name}`);
+        console.table(employees);
+        // displayFooter(footer);
+    } catch (err) {
+        if (err) throw err;
+    }
 }
 
-function displayAllEmployeesByManager() {
-    // try {
-    const managers = getAllManagers();
-    const manager = inquirer.prompt([
-        {
-            type: 'list',
-            name: 'name',
-            message: 'Please select a department:',
-            choices: managers
-        }
-    ]);
+async function displayAllEmployeesByManager() {
+    try {
+        const managers = await getAllManagers();
+        const manager = await inquirer.prompt([
+            {
+                type: 'list',
+                name: 'name',
+                message: 'Please select a department:',
+                choices: managers
+            }
+        ]);
 
-    const managerID = getEmployeeID(manager.name);
+        const managerID = await getEmployeeID(manager.name);
 
-    const employeesManaged = getAllEmployeesByManager(managerID);
+        const employeesManaged = await getAllEmployeesByManager(managerID);
 
-    // const footer = displayHeadline(`All Employees under ${manager.name}`);
-    console.table(employeesManaged);
-    // displayFooter(footer);
-    // } catch (err) {
-    //   if (err) throw err;
-    // }
+        // const footer = displayHeadline(`All Employees under ${manager.name}`);
+        console.table(employeesManaged);
+        // displayFooter(footer);
+    } catch (err) {
+        if (err) throw err;
+    }
 }
 
 module.exports = {

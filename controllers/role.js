@@ -12,79 +12,79 @@ const {
 //     displayFooter
 // } = require('../utils/log');
 
-function addRole() {
-    // try {
-    const departmentNames = getAllDepartmentNames();
+async function addRole() {
+    try {
+        const departmentNames = await getAllDepartmentNames();
 
-    const role = inquirer.prompt([
-        {
-            type: 'input',
-            name: 'title',
-            message: 'Please enter the role that you would like to add: '
-        },
-        {
-            type: 'input',
-            name: 'salary',
-            message: 'Please enter the salary assigned for this role: '
-        },
-        {
-            type: 'list',
-            name: 'department',
-            message: 'To which department would you like to add this role? ',
-            choices: departmentNames
-        }
-    ]);
+        const role = await inquirer.prompt([
+            {
+                type: 'input',
+                name: 'title',
+                message: 'Please enter the role that you would like to add: '
+            },
+            {
+                type: 'input',
+                name: 'salary',
+                message: 'Please enter the salary assigned for this role: '
+            },
+            {
+                type: 'list',
+                name: 'department',
+                message: 'To which department would you like to add this role? ',
+                choices: departmentNames
+            }
+        ]);
 
-    role.departmentID = getDepartmentID(role.department);
-    insertRole(role);
-    // } catch (err) {
-    //     if (err) throw err;
-    // }
-}
-
-function getAllRoleNames() {
-    // try {
-    const roles = getAllRoles();
-
-    let roleNames = [];
-    for (const role of roles) {
-        roleNames.push(role.Title);
+        role.departmentID = await getDepartmentID(role.department);
+        await insertRole(role);
+    } catch (err) {
+        if (err) throw err;
     }
-
-    return roleNames;
-    // } catch (err) {
-    //     if (err) throw err;
-    // }
 }
 
-function removeRole() {
-    // try {
-    const roleNames = getAllRoleNames;
+async function getAllRoleNames() {
+    try {
+        const roles = await getAllRoles();
 
-    const role = inquirer.prompt([
-        {
-            type: 'list',
-            name: 'title',
-            message: 'Which role would you like to remove? ',
-            choices: roleNames
+        let roleNames = [];
+        for (const role of roles) {
+            roleNames.push(role.Title);
         }
-    ]);
 
-    deleteRole(role.title);
-    // } catch (err) {
-    //     if (err) throw err;
-    // }
+        return roleNames;
+    } catch (err) {
+        if (err) throw err;
+    }
 }
 
-function displayAllRoles() {
-    // try {
-    const roles = getAllRoles();
-    // const footer = displayHeadline('All Roles');
-    console.table(roles);
-    // displayFooter(footer);
-    //     } catch (err) {
-    //         if (err) throw err;
-    //     }
+async function removeRole() {
+    try {
+        const roleNames = getAllRoleNames;
+
+        const role = await inquirer.prompt([
+            {
+                type: 'list',
+                name: 'title',
+                message: 'Which role would you like to remove? ',
+                choices: roleNames
+            }
+        ]);
+
+        await deleteRole(role.title);
+    } catch (err) {
+        if (err) throw err;
+    }
+}
+
+async function displayAllRoles() {
+    try {
+        const roles = await getAllRoles();
+        // const footer = displayHeadline('All Roles');
+        console.table(roles);
+        // displayFooter(footer);
+    } catch (err) {
+        if (err) throw err;
+    }
 }
 
 module.exports = {

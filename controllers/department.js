@@ -8,9 +8,9 @@ const {
 //     displayFooter
 // } = require('../utils/log');
 
-function addDepartment() {
+async function addDepartment() {
     try {
-        const department = inquirer.prompt([
+        const department = await inquirer.prompt([
             {
                 type: 'input',
                 name: 'name',
@@ -18,16 +18,16 @@ function addDepartment() {
             }
         ]);
 
-        insertDepartment(department.name);
+        await insertDepartment(department.name);
     } catch (err) {
         if (err) throw err;
     }
 }
 
 
-function getAllDepartmentNames() {
+async function getAllDepartmentNames() {
     try {
-        const departments = getAllDepartments();
+        const departments = await getAllDepartments();
 
         let departmentNames = [];
         for (const department of departments) {
@@ -40,11 +40,11 @@ function getAllDepartmentNames() {
     }
 }
 
-function removeDepartment() {
+async function removeDepartment() {
     try {
-        const departmentNames = getAllDepartmentNames();
+        const departmentNames = await getAllDepartmentNames();
 
-        const department = inquirer.prompt([
+        const department = await inquirer.prompt([
             {
                 type: 'list',
                 name: 'name',
@@ -53,15 +53,15 @@ function removeDepartment() {
             }
         ]);
 
-        deleteDepartment(department.name);
+        await deleteDepartment(department.name);
     } catch (err) {
         if (err) throw err;
     }
 }
 
-function displayAllDepartments() {
+async function displayAllDepartments() {
     try {
-        const departments = getAllDepartments();
+        const departments = await getAllDepartments();
         // const footer = displayHeadline('All Departments');
         console.table(departments);
         // displayFooter(footer);
