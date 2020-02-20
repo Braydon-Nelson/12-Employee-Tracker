@@ -12,7 +12,7 @@ const {
     getAllEmployeesDetails,
     getAllEmployeesByDepartment,
     getAllEmployeesByManager
-} = require('../models/employees');
+} = require('../models/employee');
 const {
     getAllTitles,
     getRoleID
@@ -23,10 +23,10 @@ const {
 const {
     getAllDepartmentNames
 } = require('./department');
-const {
-    displayHeadline,
-    displayFooter
-} = require('../utils/log');
+// const {
+//     displayHeadline,
+//     displayFooter
+// } = require('../utils/log');
 
 
 function addEmployee() { //--------------------------------------------- Add Employee
@@ -185,9 +185,9 @@ function displayAllEmployees() {
             delete employee['manager_id'];
         }
     }
-    const footer = displayHeadline('All Employees');
+    // const footer = displayHeadline('All Employees');
     console.table(employees);
-    displayFooter(footer);
+    // displayFooter(footer);
     // } catch (err) {
     //   if (err) {
     //     throw err;
@@ -212,9 +212,9 @@ function displayAllEmployeesByDepartment() {
 
     const employees = getAllEmployeesByDepartment(departmentID);
 
-    const footer = displayHeadline(`All Employees in ${department.name}`);
+    // const footer = displayHeadline(`All Employees in ${department.name}`);
     console.table(employees);
-    displayFooter(footer);
+    // displayFooter(footer);
     // } catch (err) {
     //   if (err) throw err;
     // }
@@ -236,9 +236,9 @@ function displayAllEmployeesByManager() {
 
     const employeesManaged = getAllEmployeesByManager(managerID);
 
-    const footer = displayHeadline(`All Employees under ${manager.name}`);
+    // const footer = displayHeadline(`All Employees under ${manager.name}`);
     console.table(employeesManaged);
-    displayFooter(footer);
+    // displayFooter(footer);
     // } catch (err) {
     //   if (err) throw err;
     // }
