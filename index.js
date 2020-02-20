@@ -46,8 +46,6 @@ async function app() {
                 'Remove Department',
                 'Add Role',
                 'Remove Role',
-                'View Total Budget',
-                'View Total Department Budget',
                 'Exit'
             ]
         }

@@ -65,10 +65,11 @@ const database = {
         db.query(
             `INSERT INTO department (name) 
         VALUES 
-          ('Sales'),
-          ('Legal'),
-          ('Fianace'),
-          ('Engineering')`,
+          ('UNSC Command'),
+          ('UNSC Squad Lead'),
+          ('UNSC Itelligence'),
+          ('UNSC Riflemen'),
+          ('UNSC Rookie')`,
             err => {
                 if (err) {
                     console.log(err);
@@ -81,13 +82,12 @@ const database = {
         db.query(
             `INSERT INTO role (title, salary, department_id) 
         VALUES 
-          ('Sales Lead', 100000, 1),
-          ('Salesperson', 80000, 1),
-          ('Lawyer', 190000, 2),
-          ('Legal Team Lead', 250000, 2),
-          ('Accountant', 125000, 3),
-          ('Software Engineer', 120000, 4),
-          ('Lead Software Engineer', 180000, 4)`,
+          ('Noble One', 60000, 1),
+          ('Noble Two', 50000, 2),
+          ('Noble Three', 40000, 2),
+          ('Noble Four', 30000, 3),
+          ('Noble Five', 20000, 3),
+          ('Noble Six', 10000, 4)`,
             err => {
                 if (err) {
                     console.log(err);
@@ -101,10 +101,10 @@ const database = {
             `INSERT INTO employee (first_name, last_name, role_id, manager_id) 
         VALUES 
           ('Carter', 'A259', 1, 1),
-          ('Kat', 'B320', 2, null),
-          ('Jun', 'A266', 3, null),
-          ('Emile', 'A239', 4, 3),
-          ('Jorge', '052', 5, null)`,
+          ('Kat', 'B320', 2, 2),
+          ('Jun', 'A266', 3, 2),
+          ('Emile', 'A239', 4, 2),
+          ('Jorge', '052', 5, 2)`,
             err => {
                 if (err) {
                     console.log(err);
