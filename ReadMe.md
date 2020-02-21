@@ -26,7 +26,7 @@ The application can be with the following command:
 npm start
 ``
 
-Start using 👌
+Start Managing
 
 ## Built With
 
