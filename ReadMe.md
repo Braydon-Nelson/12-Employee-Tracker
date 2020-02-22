@@ -20,6 +20,7 @@ Clone the application to your local machine:
 git clone https://github.com/Braydon-Nelson/12-Employee-Tracker.git
 ``
 Prepare the NPM Packages:
+
 ``
 npm i
 ``

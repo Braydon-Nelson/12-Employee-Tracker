@@ -9,12 +9,19 @@ const db = mysql.createConnection({
 });
 
 function getRoleID(roleTitle) {
+    console.log(roleTitle);
+    console.log(`roleTitle`);
+
     return new Promise((resolve, reject) => {
         const query = "SELECT id FROM role WHERE title = ?"
-        db.query(query, [roleTitle], (err, results) => {
+        db.query(query, [roleTitle.title], (err, results) => {
             if (err) {
                 reject(err);
             } else {
+                console.log('-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_');
+                console.log(results[0].id);
+
+
                 resolve(results[0].id);
             }
         });
@@ -68,6 +75,8 @@ function getAllTitles() {
         // Get the list of all titles
         const titles = [];
         db.query(query, (err, results) => {
+            console.log(results);
+
             if (err) reject(err);
 
             for (const role of results) {

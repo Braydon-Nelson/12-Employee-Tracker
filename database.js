@@ -85,9 +85,9 @@ const database = {
           ('Noble One', 60000, 1),
           ('Noble Two', 50000, 2),
           ('Noble Three', 40000, 2),
-          ('Noble Four', 30000, 3),
+          ('Noble Four', 30000, 4),
           ('Noble Five', 20000, 3),
-          ('Noble Six', 10000, 4)`,
+          ('Noble Six', 10000, 5)`,
             err => {
                 if (err) {
                     console.log(err);

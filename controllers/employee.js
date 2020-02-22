@@ -6,6 +6,7 @@ const {
     getAllEmployees,
     getManagerByID,
     getAllManagers,
+    setEmployeeRole,
     setEmployeeManager,
     deleteEmployee,
     getAllEmployeesDetails,
@@ -58,6 +59,8 @@ async function addEmployee() {
         ]);
 
         employee.roleID = await getRoleID(employee.title);
+
+
         employee.managerID = await getEmployeeID(employee.manager);
 
         await insertEmployee(employee);
@@ -160,7 +163,8 @@ async function updateEmployeeRole() {
             }
         ]);
 
-        await setEmployeeRole(employee.name, role);
+        const roleID = await getRoleID(role);
+        await setEmployeeRole(employee.name, roleID);
     } catch (err) {
         if (err) throw err;
     }

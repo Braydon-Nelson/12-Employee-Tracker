@@ -83,19 +83,25 @@ function deleteEmployee(employeeName) {
 };
 
 function setEmployeeRole(employeeName, role) {
-    return new Promise((resolve, reject) => {
-        const firstName = employeeName.split(' ')[0];
-        const lastName = employeeName.split(' ')[1];
-        const query =
-            'UPDATE employee SET role_id = ? WHERE first_name = ? AND last_name = ?';
-        db.query(query, [firstName, lastName, role.id], err => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve('Success');
-            }
+    try {
+        return new Promise((resolve, reject) => {
+            const firstName = employeeName.split(' ')[0];
+            const lastName = employeeName.split(' ')[1];
+            const query =
+                'UPDATE employee SET role_id = ? WHERE first_name = ? AND last_name = ?';
+            db.query(query, [role, firstName, lastName], err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve('Success');
+                }
+            });
         });
-    });
+    } catch (error) {
+        if (error) {
+            throw error
+        }
+    }
 };
 
 function setEmployeeManager(employee, managerID = null) {
