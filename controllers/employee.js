@@ -57,8 +57,11 @@ async function addEmployee() {
                 choices: employees
             }
         ]);
+        console.log("EMPLOYEE");
 
-        employee.roleID = await getRoleID(employee.title);
+        console.log(employee);
+
+        employee.roleID = await getRoleID(employee);
 
 
         employee.managerID = await getEmployeeID(employee.manager);

@@ -5,8 +5,12 @@ const {
     getDepartmentID
 } = require('../models/department');
 const {
-    getAllRoles
+    getAllRoles,
+    insertRole,
+    deleteRole
 } = require('../models/role');
+const inquirer = require('inquirer');
+
 
 async function addRole() {
     try {

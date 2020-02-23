@@ -4,6 +4,8 @@ const {
     deleteDepartment
 } = require('../models/department');
 
+const inquirer = require('inquirer');
+
 async function addDepartment() {
     try {
         const department = await inquirer.prompt([

@@ -30,7 +30,6 @@ function insertDepartment(departmentName) {
             if (err) {
                 reject(err);
             } else {
-                console.log('Success');
                 resolve();
             }
         });
