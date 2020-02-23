@@ -15,12 +15,6 @@ function getRoleID(roleTitle) {
             if (err) {
                 reject(err);
             } else {
-                console.log('RESULTS VVVVVVVVV');
-                console.log(roleTitle);
-
-                console.log(results);
-                console.log('RESULTS ^^^^^^^^^^');
-
 
                 resolve(results[0].id);
             }
@@ -37,7 +31,7 @@ function insertRole(role) {
             if (err) {
                 reject(err);
             } else {
-                resolve('Success');
+                resolve('Role Added');
             }
         });
     });
@@ -50,7 +44,7 @@ function deleteRole(roleTitle) {
             if (err) {
                 reject(err);
             } else {
-                resolve('Success');
+                resolve('Role Deleted');
             }
         });
     });

@@ -69,6 +69,7 @@ async function removeRole() {
                 choices: roleNames
             }
         ]);
+        console.log(role);
 
         await deleteRole(role.title);
     } catch (err) {

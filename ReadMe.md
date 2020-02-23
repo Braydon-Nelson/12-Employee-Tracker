@@ -41,4 +41,4 @@ Start Managing
 
 ## Demo
 
-![demo](./assets/)
+![demo](./assets/imgs/app-demo.gif)

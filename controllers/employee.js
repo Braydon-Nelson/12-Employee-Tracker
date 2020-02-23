@@ -57,9 +57,6 @@ async function addEmployee() {
                 choices: employees
             }
         ]);
-        console.log("EMPLOYEE");
-
-        console.log(employee);
 
         employee.roleID = await getRoleID(employee);
 
@@ -123,6 +120,8 @@ async function updateEmployeeManager() {
 
         employee = employee.name;
         employees = employees.filter(el => el !== employee);
+        employees.unshift('None');
+
 
         const manager = await inquirer.prompt([
             {
